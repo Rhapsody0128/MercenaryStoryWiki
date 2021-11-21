@@ -13,19 +13,21 @@
         .tag(v-for='(data,index) in selectTags')
           v-btn(rounded="pill"  @click='tagSelectBack(data,index)')
             span {{data.title}}      
-  .row
-    div(v-if='race.length>0')
-      h3 種族
-      .tags
-        .tag(v-for='data in race')
-          v-btn(rounded="pill" @click='selectTag(race,data)')
-            span {{data.title}}
-    div.ml(v-if='armyType.length>0')
-      h3 兵種
-      .tags
-        .tag(v-for='data in armyType')
-          v-btn(rounded="pill" @click='selectTag(armyType,data)')
-            span {{data.title}}
+  .line
+    .row
+      div.mr(v-if='race.length>0')
+        h3 種族
+        .tags
+          .tag(v-for='data in race')
+            v-btn(rounded="pill" @click='selectTag(race,data)')
+              span {{data.title}}
+    .row
+      div(v-if='armyType.length>0')
+        h3 兵種
+        .tags
+          .tag(v-for='data in armyType')
+            v-btn(rounded="pill" @click='selectTag(armyType,data)')
+              span {{data.title}}
   //- .row
   //-   div(v-if='tag.length>0')
   //-     h3 其他標籤
@@ -34,11 +36,7 @@
   //-         v-btn(rounded="pill" @click='selectTag(tags,data)')
   //-           span {{data.title}}
   .row
-    .outerCard
-        v-card.card(v-for='data in selectHeros' @click='selectCard(data)')
-          div.img
-            img(:src='data.avatarUrl')
-      
+    heroCard(v-for='data in selectHeros' :data='data')
 </template>
 <script>
 import { heroList } from "../data/hero/index";
@@ -106,10 +104,6 @@ export default {
       });
       this.selectTags = [];
     },
-
-    selectCard(data) {
-      this.$router.push({ name: "Hero", query: { name: data.name } });
-    },
   },
   mounted() {
     this.heros = heroList;
@@ -131,34 +125,28 @@ export default {
 <style lang="stylus" scoped>
 .row
   padding 1rem
-  display: flex
+.line
+  display flex
+  flex-wrap: nowrap
 .tags
   .tag
-    padding: 0.5rem
-    display inline-block
-.img
-  width 100%
-  height 95%
-  img
-    width 100%
-    height 100%
-    object-fit: cover
-.outerCard
-  .card
-    margin: 1rem
-    border-radius 50%
-    width 150px
-    height 150px
+    padding: 0.1rem
     display inline-block
 
 .mr
-  margin-right: 5rem
+  margin-right: 3rem
 .ml
-  margin-left: 5rem
+  margin-left: 3rem
 .mt
-  margin-top: 5rem
+  margin-top: 3rem
 .mb
-  margin-bottom 5rem
+  margin-bottom 3rem
 .p
   padding: 0.5rem
+
+@media (max-width:900px) {
+  .line{
+    display inline-block !important
+  }
+}
 </style>
