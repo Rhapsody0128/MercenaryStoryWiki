@@ -1,6 +1,11 @@
 <template lang="pug">
 #app
-  router-view
+  v-app
+    v-app-bar(density="compact").nav
+      v-app-bar-title
+        router-link(to='/') 首頁
+    v-main
+      router-view
 </template>
 <script>
 export default {
@@ -9,8 +14,29 @@ export default {
   },
 };
 </script>
-<style lang="stylus" scoped>
+<style lang="stylus">
+*,html
+  font-weight bold
+  font-family: '微軟正黑體'
+
+.nav
+  background: #f6f3ff
+  transition: 0.5s
+  &:hover
+    opacity 1
 #app
-  height 100vh
-  background: rgba(200,200,200,0.5)
+  min-height: 100vh
+  background-image: linear-gradient(to top, #cd9cf2 0%, #f6f3ff 100%);
+  text-align: center
+
+.mr
+  margin-right: 1.2rem
+.ml
+  margin-left: 1.2rem
+.mt
+  margin-top: 1.2rem
+.mb
+  margin-bottom 1.2rem
+.p
+  padding: 0.5rem
 </style>

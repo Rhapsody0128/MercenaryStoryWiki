@@ -1,45 +1,39 @@
 <template lang="pug">
 #home
   .row
-    div
+    v-sheet.p.mt.rounded-lg(elevation="3" color='rgba(0,0,0,0)')
       h3 目前篩選
       .tags
-        .tag(v-if='selectTags.length==0')
+        .tag(v-if='selectTags.length==0' )
           v-btn(rounded="pill" disabled)
             span 全部
         .tag(v-else)
-          v-btn(rounded="pill" @click='clearSelectTag()')
+          v-btn( rounded="pill" @click='clearSelectTag()')
             span 清除全部
-        .tag(v-for='(data,index) in selectTags')
-          v-btn(rounded="pill"  @click='tagSelectBack(data,index)')
-            span {{data.title}}      
+        tag(:data='data' v-for='(data,index) in selectTags' :key='data.title' @click='tagSelectBack(data,index)')
   .line
     .row
-      div.mr(v-if='race.length>0')
+      v-sheet.p.mt.rounded-lg(elevation="3" color='rgba(0,0,0,0)')
         h3 種族
         .tags
-          .tag(v-for='data in race')
-            v-btn(rounded="pill" @click='selectTag(race,data)')
-              span {{data.title}}
+          tag(:data='data' v-for='(data,index) in race' :key='data.title' @click='selectTag(race,data)')
     .row
-      div(v-if='armyType.length>0')
+      v-sheet.p.mt.rounded-lg(elevation="3" color='rgba(0,0,0,0)')
         h3 兵種
         .tags
-          .tag(v-for='data in armyType')
-            v-btn(rounded="pill" @click='selectTag(armyType,data)')
-              span {{data.title}}
-  //- .row
-  //-   div(v-if='tag.length>0')
-  //-     h3 其他標籤
-  //-     .tags
-  //-       .tag(v-for='data in tags')
-  //-         v-btn(rounded="pill" @click='selectTag(tags,data)')
-  //-           span {{data.title}}
+          tag(:data='data' v-for='(data,index) in armyType' :key='data.title' @click='selectTag(armyType,data)')
   .row
-    heroCard(v-for='data in selectHeros' :data='data')
+    v-sheet.p.mt.rounded-lg(elevation="3" color='rgba(0,0,0,0)')
+      h3 其他標籤
+      .tags
+        tag(:data='data' v-for='data in tag'  @click='selectTag(tag,data)')
+  .row
+    v-sheet.p.mt.rounded-lg(elevation="3" color='rgba(0,0,0,0)')
+      heroCard(v-for='data in selectHeros' :data='data' )
 </template>
 <script>
 import { heroList } from "../data/hero/index";
+import { tagList } from "../data/tag/index";
 import { armyTypeList } from "../data/army/index";
 import { raceList } from "../data/race/index";
 export default {
@@ -49,6 +43,7 @@ export default {
       selectHeros: [],
       armyType: [],
       race: [],
+      tag: [],
       selectTags: [],
     };
   },
@@ -57,11 +52,33 @@ export default {
       if (this.selectTags.length == 0) {
         this.selectHeros = this.heros;
       } else {
+        let heros = heroList;
         this.selectTags.map((data) => {
-          this.selectHeros = this.heros.filter((item) => {
-            return data.title == item[data.type];
+          let result = [];
+          heros.map((hero) => {
+            if (data.type == "tag") {
+              if (hero.tag.includes(data.title)) {
+                let find = result.find((unit) => {
+                  return hero == unit;
+                });
+                if (!find) {
+                  result.push(hero);
+                }
+              }
+            } else {
+              if (data.title == hero[data.type]) {
+                let find = result.find((unit) => {
+                  return hero == unit;
+                });
+                if (!find) {
+                  result.push(hero);
+                }
+              }
+            }
+            heros = result;
           });
         });
+        this.selectHeros = heros;
       }
     },
     selectTag(from, data) {
@@ -109,12 +126,12 @@ export default {
     this.heros = heroList;
     this.armyType = armyTypeList;
     this.race = raceList;
+    this.tag = tagList;
     this.selectHeros = this.heros;
   },
   watch: {
     selectTags: {
       handler: function () {
-        console.log("object");
         this.getData();
       },
       deep: true,
@@ -128,21 +145,13 @@ export default {
 .line
   display flex
   flex-wrap: nowrap
-.tags
-  .tag
-    padding: 0.1rem
-    display inline-block
+  .row
+    width 100%
 
-.mr
-  margin-right: 3rem
-.ml
-  margin-left: 3rem
-.mt
-  margin-top: 3rem
-.mb
-  margin-bottom 3rem
-.p
-  padding: 0.5rem
+
+.tag
+  padding: 0.1rem
+  display inline-block
 
 @media (max-width:900px) {
   .line{

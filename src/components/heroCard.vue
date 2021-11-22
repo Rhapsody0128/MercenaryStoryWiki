@@ -26,6 +26,7 @@ export default {
   height 150px
   display inline-block
   position relative
+  box-shadow: 0.2rem 0.2rem 0.7rem rgba(0,0,0,0.5)
   .img
     width 100%
     height 95%
@@ -45,6 +46,7 @@ export default {
     color: white
     text-align: center
   &:hover
+    box-shadow: 0.3rem 0.3rem 0.7rem black
     .name
       bottom 5%
       background: rgba(0.0.0.0.5)
