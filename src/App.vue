@@ -27,7 +27,6 @@ export default {
 #app
   min-height: 100vh
   background-image: linear-gradient(to top, #cd9cf2 0%, #f6f3ff 100%);
-  text-align: center
 
 .mr
   margin-right: 1.2rem

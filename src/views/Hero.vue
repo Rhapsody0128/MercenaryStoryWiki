@@ -95,16 +95,18 @@ export default {
 
       this.tag.map((tag) => {
         let result = [];
-        heroList.map((hero) => {
-          if (hero.tag.includes(tag.title) && hero.name !== this.hero.name) {
-            result.push(hero);
-          }
-        });
-        if (result.length > 0) {
-          this.tagData.push({
-            tag: tag.title,
-            data: result,
+        if (tag) {
+          heroList.map((hero) => {
+            if (hero.tag.includes(tag.title) && hero.name !== this.hero.name) {
+              result.push(hero);
+            }
           });
+          if (result.length > 0) {
+            this.tagData.push({
+              tag: tag.title,
+              data: result,
+            });
+          }
         }
       });
     },
