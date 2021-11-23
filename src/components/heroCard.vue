@@ -14,6 +14,10 @@ export default {
   methods: {
     selectCard(data) {
       this.$router.push({ name: "Hero", query: { name: data.name } });
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
     },
   },
 };
@@ -21,21 +25,20 @@ export default {
 <style lang="stylus" scoped>
 .card
   margin: 1rem
-  border-radius 50%
-  width 150px
-  height 150px
+  width 230px
+  height 450px
   display inline-block
   position relative
   box-shadow: 0.2rem 0.2rem 0.7rem rgba(0,0,0,0.5)
   .img
     width 100%
-    height 95%
+    height 100%
     img
       width 100%
       height 100%
       object-fit: cover
-      object-position: 50% 38px;
-      transform scale(3)
+      object-position: 50% 40px;
+      transform scale(1.3)
   .name
     position: absolute
     z-index 9
@@ -45,10 +48,12 @@ export default {
     transition: 0.5s
     color: white
     text-align: center
+    height 0
   &:hover
     box-shadow: 0.3rem 0.3rem 0.7rem black
     .name
-      bottom 5%
+      bottom 0
+      height 10%
       background: rgba(0.0.0.0.5)
       opacity 1
 </style>

@@ -12,7 +12,7 @@
                 span {{skill.info}}
       v-col(cols='12' md='4')
         v-row.flex-row
-          v-col(col='3' md='12' v-for='skill in hero.skill')
+          v-col.p(col='3' md='12' v-for='skill in hero.skill')
             v-sheet.p.rounded-lg(elevation="3" color='rgba(0,0,0,0)')
               h2 {{skill.title}}
               h3 {{skill.type}}
@@ -57,7 +57,7 @@ export default {
       this.tag = [];
       let armyTypeTag = findData(armyTypeList, "title", this.hero.armyType);
       let raceTag = findData(raceList, "title", this.hero.race);
-      this.tag.push(armyTypeTag, raceTag);
+      this.tag.push(raceTag, armyTypeTag);
       this.hero.tag.map((data) => {
         let tag = findData(tagList, "title", data);
         if (tag) {

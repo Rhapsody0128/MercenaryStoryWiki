@@ -2,7 +2,7 @@
 #home
   .row
     v-sheet.p.mt.rounded-lg(elevation="3" color='rgba(0,0,0,0)')
-      h3 目前篩選
+      h3 目前篩選 ( 按下esc能快清除篩選 )
       .tags
         .tag(v-if='selectTags.length==0' )
           v-btn(rounded="pill" disabled)
@@ -128,6 +128,12 @@ export default {
     this.race = raceList;
     this.tag = tagList;
     this.selectHeros = this.heros;
+    let that = this;
+    document.onkeydown = function (evt) {
+      if (evt.key == "Escape") {
+        that.clearSelectTag();
+      }
+    };
   },
   watch: {
     selectTags: {

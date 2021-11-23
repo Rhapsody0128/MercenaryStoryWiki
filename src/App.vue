@@ -3,7 +3,22 @@
   v-app
     v-app-bar(density="compact").nav
       v-app-bar-title
-        router-link(to='/') 首頁
+        v-btn 
+          router-link(to='/') HOME
+        v-btn
+          router-link(to='/') Army
+        v-btn
+          router-link(to='/') EQUIP
+        v-btn
+          router-link(to='/') ACTIVITY
+        v-btn
+          router-link(to='/') OTHERS
+      v-spacer
+      v-btn
+        a(href='https://forum.gamer.com.tw/B.php?bsn=72995') GAMER
+      v-btn
+        a(href='https://forum.gamer.com.tw/C.php?bsn=72995&snA=44&tnum=3') DATA
+          
     v-main
       router-view
 </template>
@@ -17,7 +32,23 @@ export default {
 <style lang="stylus">
 *,html
   font-weight bold
-  font-family: '微軟正黑體'
+  font-family: 'Noto Sans TC', sans-serif;
+span
+  font-size 1.1rem
+h1
+  font-size 2.5rem
+h2
+  font-size 2.1rem
+h3
+  font-size 1.5rem
+h4
+  font-size 1.2rem
+h5
+  font-size 1rem
+p
+  font-size 1.3rem
+
+
 
 .nav
   background: #f6f3ff
