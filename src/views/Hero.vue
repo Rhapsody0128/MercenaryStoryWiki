@@ -22,6 +22,7 @@
       span(v-for='(data,index) in hero.nickName')
         span(v-if='index>0') 、
         span {{data}}
+      h5 {{hero.info}}
       .tags.mt
         tag(v-for='data in tag' :data='data')
     hr.mt
