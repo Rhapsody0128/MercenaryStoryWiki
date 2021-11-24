@@ -56,4 +56,15 @@ export default {
       height 10%
       background: rgba(0.0.0.0.5)
       opacity 1
+
+@media (max-width:700px) {
+  .card{
+    width 120px
+    height 120px
+  }
+  .card>.img>img{
+    object-position: 50% 30px;
+    transform scale(3)
+  }
+}
 </style>

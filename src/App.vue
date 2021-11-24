@@ -20,8 +20,7 @@
         a(href='https://forum.gamer.com.tw/C.php?bsn=72995&snA=44&tnum=3') DATA
           
     v-main
-      keep-alive
-        router-view
+      router-view
 </template>
 <script>
 export default {
@@ -34,6 +33,18 @@ export default {
 *,html
   font-weight bold
   font-family: 'Noto Sans TC', sans-serif;
+
+
+.nav
+  background: #f6f3ff
+  transition: 0.5s
+  &:hover
+    opacity 1
+#app
+  min-height: 100vh
+  background-image: linear-gradient(to top, #cd9cf2 0%, #f6f3ff 100%);
+
+
 span
   font-size 1.1rem
 h1
@@ -49,17 +60,6 @@ h5
 p
   font-size 1.3rem
 
-
-
-.nav
-  background: #f6f3ff
-  transition: 0.5s
-  &:hover
-    opacity 1
-#app
-  min-height: 100vh
-  background-image: linear-gradient(to top, #cd9cf2 0%, #f6f3ff 100%);
-
 .mr
   margin-right: 1.2rem
 .ml
@@ -70,4 +70,52 @@ p
   margin-bottom 1.2rem
 .p
   padding: 0.5rem
+
+.row
+  padding-left 1rem
+  padding-right 1rem
+
+@media (max-width:700px) {
+  .row{
+    padding-left 0.1rem
+    padding-right 0.1rem
+  }
+  span{
+    font-size 0.9rem
+  }
+  h1{
+    font-size 2.0rem
+  }
+  h2{
+    font-size 1.5rem
+  }
+  h3{
+    font-size 1.2rem
+  }
+  h4{
+    font-size 1rem
+  }
+  h5{
+    font-size 0.8rem
+  }
+  p{
+    font-size 0.9rem
+  }
+  .mr{
+    margin-right: 0.1rem
+  }
+  .ml{
+    margin-left: 0.1rem
+  }
+  .mt{
+    margin-top: 0.1rem
+  }
+  .mb{
+    margin-bottom 0.1rem
+  }
+  .p{
+    padding: 0.3rem
+  }
+
+}
 </style>

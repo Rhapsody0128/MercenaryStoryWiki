@@ -349,4 +349,10 @@ export const tagList = [
     class: "其他標籤",
     type: "tag",
   },
+  {
+    title: "持盾",
+    intro: "一般盾牌,有30%機率擋下投射物;大盾則有60%機率擋下投射體",
+    class: "其他標籤",
+    type: "tag",
+  },
 ];

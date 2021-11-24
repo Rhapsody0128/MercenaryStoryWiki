@@ -2,31 +2,21 @@
 #home
   .row
     v-sheet.p.mt.rounded-lg(elevation="3" color='rgba(0,0,0,0)')
-      h3 目前篩選 ( 按下esc能快清除篩選 )
+      h3 種族
       .tags
-        .tag(v-if='selectTags.length==0' )
-          v-btn(rounded="pill" disabled)
-            span 全部
-        .tag(v-else)
-          v-btn( rounded="pill" @click='clearSelectTag()')
-            span 清除全部
-        tag(:data='data' v-for='(data,index) in selectTags' :key='data.title' @click='tagSelectBack(data,index)')
-  .line
-    .row
-      v-sheet.p.mt.rounded-lg(elevation="3" color='rgba(0,0,0,0)')
-        h3 種族
-        .tags
-          tag(:data='data' v-for='(data,index) in race' :key='data.title' @click='selectTag(race,data)')
-    .row
-      v-sheet.p.mt.rounded-lg(elevation="3" color='rgba(0,0,0,0)')
-        h3 兵種
-        .tags
-          tag(:data='data' v-for='(data,index) in armyType' :key='data.title' @click='selectTag(armyType,data)')
+        tag(:datas='race')
+  .row
+    v-sheet.p.mt.rounded-lg(elevation="3" color='rgba(0,0,0,0)')
+      h3 兵種
+      .tags
+        tag(:datas='armyType')
   .row
     v-sheet.p.mt.rounded-lg(elevation="3" color='rgba(0,0,0,0)')
       h3 其他標籤
       .tags
-        tag(:data='data' v-for='data in tag'  @click='selectTag(tag,data)')
+        tag(:datas='tag')
+  .row.p.mt
+    v-btn(@click='clearSelectTag()') 清空所有標籤 (快捷鍵可按esc)
   .row
     v-sheet.p.mt.rounded-lg(elevation="3" color='rgba(0,0,0,0)')
       heroCard(v-for='data in selectHeros' :data='data' )
@@ -44,8 +34,23 @@ export default {
       armyType: [],
       race: [],
       tag: [],
-      selectTags: [],
     };
+  },
+  computed: {
+    selectTags() {
+      let selectRace = this.race.filter((data) => {
+        return data.active;
+      });
+      let selectArmyType = this.armyType.filter((data) => {
+        return data.active;
+      });
+      let selectTag = this.tag.filter((data) => {
+        return data.active;
+      });
+      let result = selectRace.concat(selectArmyType);
+      result = result.concat(selectTag);
+      return result;
+    },
   },
   methods: {
     getData() {
@@ -106,20 +111,15 @@ export default {
       this.selectTags.splice(index, 1);
     },
     clearSelectTag() {
-      this.selectTags.map((data) => {
-        switch (data.type) {
-          case "armyType":
-            this.armyType.push(data);
-            break;
-          case "race":
-            this.race.push(data);
-            break;
-          case "tag":
-            this.tag.push(data);
-            break;
-        }
+      this.tag.forEach((data) => {
+        data.active = false;
       });
-      this.selectTags = [];
+      this.race.forEach((data) => {
+        data.active = false;
+      });
+      this.armyType.forEach((data) => {
+        data.active = false;
+      });
     },
   },
   mounted() {
@@ -138,6 +138,7 @@ export default {
   watch: {
     selectTags: {
       handler: function () {
+        console.log(this.selectTags);
         this.getData();
       },
       deep: true,
@@ -146,14 +147,12 @@ export default {
 };
 </script>
 <style lang="stylus" scoped>
-.row
-  padding 1rem
+
 .line
   display flex
   flex-wrap: nowrap
   .row
     width 100%
-
 
 .tag
   padding: 0.1rem

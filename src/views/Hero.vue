@@ -17,19 +17,21 @@
               h2 {{skill.title}}
               h3 {{skill.type}}
               h4 {{skill.info}}
-    v-sheet.p.mt.rounded-lg(elevation="3" color='rgba(0,0,0,0)')
-      h1 {{hero.name}}
-      span(v-for='(data,index) in hero.nickName')
-        span(v-if='index>0') 、
-        span {{data}}
-      h5 {{hero.info}}
-      .tags.mt
-        tag(v-for='data in tag' :data='data')
-    hr.mt
-    .row(v-for='tagData in tagData').mt
-      v-sheet.p.mt.rounded-lg(elevation="6" color='rgba(0,0,0,0)')
-        h2 {{tagData.tag}}
-        heroCard(v-for='data in tagData.data' :data='data')
+    v-row
+      v-col
+        v-sheet.p.mt.rounded-lg(elevation="3" color='rgba(0,0,0,0)')
+          h1 {{hero.name}}
+          span(v-for='(data,index) in hero.nickName')
+            span(v-if='index>0') 、
+            span {{data}}
+          h5 {{hero.info}}
+          .tags.mt
+            tag(:datas='tag' :canSelect="false")
+    v-row(v-for='tagData in tagData')
+      v-col
+        v-sheet.p.mt.rounded-lg(elevation="6" color='rgba(0,0,0,0)')
+          h2 {{tagData.tag}}
+          heroCard(v-for='data in tagData.data' :data='data')
 </template>
 <script>
 import { findData, filterData } from "../data/global";
@@ -140,9 +142,10 @@ export default {
 .flex-row
   flex-wrap: wrap
 
-@media (max-width:700px) {
+@media (max-width:600px) {
   .flex-row{
     display: inline-block
+    padding 0.5rem
   }
 }
 .skill
@@ -178,14 +181,13 @@ export default {
   top -50%
   transition: 0.5s
   transform:translate(-50%,-20%) scale(0.5)
-
-
-  /* Position the tooltip text - see examples below! */
   position: absolute;
   z-index: 5;
   padding: 0.5rem
 
-/* Show the tooltip text when you mouse over the tooltip container */
+.tooltiptext
+  pointer-events: none
+
 .skill:hover
   .tooltiptext
     opacity 0.9
