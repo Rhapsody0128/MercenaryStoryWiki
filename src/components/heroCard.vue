@@ -63,8 +63,8 @@ export default {
     height 120px
   }
   .card>.img>img{
-    object-position: 50% 30px;
-    transform scale(3)
+    object-position: 50% 25px;
+    transform scale(2.3)
   }
 }
 </style>
