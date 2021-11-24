@@ -123,10 +123,10 @@ export default {
     },
   },
   mounted() {
-    this.heros = heroList;
-    this.armyType = armyTypeList;
-    this.race = raceList;
-    this.tag = tagList;
+    this.heros = JSON.parse(JSON.stringify(heroList));
+    this.armyType = JSON.parse(JSON.stringify(armyTypeList));
+    this.race = JSON.parse(JSON.stringify(raceList));
+    this.tag = JSON.parse(JSON.stringify(tagList));
     this.selectHeros = this.heros;
     let that = this;
     document.onkeydown = function (evt) {
