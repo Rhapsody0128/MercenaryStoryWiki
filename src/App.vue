@@ -20,7 +20,8 @@
         a(href='https://forum.gamer.com.tw/C.php?bsn=72995&snA=44&tnum=3') DATA
           
     v-main
-      router-view
+      keep-alive
+        router-view
 </template>
 <script>
 export default {
