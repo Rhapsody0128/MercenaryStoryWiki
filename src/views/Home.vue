@@ -16,10 +16,19 @@
       .tags
         tag(:datas='tag')
   .row.p.mt
-    v-btn(@click='clearSelectTag()') 清空所有標籤 (快捷鍵可按esc)
+    v-btn(@click='clearSelectTag()') 
+      span 清空所有標籤 (快捷鍵可按esc)
+    v-btn.favorite(@click='changeFavoriteType()')
+      span 收藏模式
+      svg(v-if="favoriteType==0" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24")
+        path(d="M12 9.229c.234-1.12 1.547-6.229 5.382-6.229 2.22 0 4.618 1.551 4.618 5.003 0 3.907-3.627 8.47-10 12.629-6.373-4.159-10-8.722-10-12.629 0-3.484 2.369-5.005 4.577-5.005 3.923 0 5.145 5.126 5.423 6.231zm-12-1.226c0 4.068 3.06 9.481 12 14.997 8.94-5.516 12-10.929 12-14.997 0-7.962-9.648-9.028-12-3.737-2.338-5.262-12-4.27-12 3.737z")
+      svg(:class='"favoriteTpye" + favoriteType' v-else xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24")      
+        path(d="M12 4.435c-1.989-5.399-12-4.597-12 3.568 0 4.068 3.06 9.481 12 14.997 8.94-5.516 12-10.929 12-14.997 0-8.118-10-8.999-12-3.568z")
+    v-btn.favorite(@click='clearFavorite()')
+      span 清空所有收藏
   .row
     v-sheet.p.mt.rounded-lg(elevation="3" color='rgba(0,0,0,0)')
-      heroCard(v-for='data in selectHeros' :data='data' )
+      heroCard(v-for='data in selectHeros' :data='data' :favoriteTpye='favoriteType' :showHeart="true")
 </template>
 <script>
 import { heroList } from "../data/hero/index";
@@ -34,6 +43,7 @@ export default {
       armyType: [],
       race: [],
       tag: [],
+      favoriteType: 0,
     };
   },
   computed: {
@@ -121,6 +131,17 @@ export default {
         data.active = false;
       });
     },
+
+    changeFavoriteType() {
+      this.favoriteType++;
+      if (this.favoriteType > 3) {
+        this.favoriteType = 0;
+      }
+    },
+    clearFavorite() {
+      this.favoriteType = 0;
+      this.$store.commit("clearFavorite");
+    },
   },
   mounted() {
     this.heros = JSON.parse(JSON.stringify(heroList));
@@ -138,7 +159,6 @@ export default {
   watch: {
     selectTags: {
       handler: function () {
-        console.log(this.selectTags);
         this.getData();
       },
       deep: true,
@@ -157,6 +177,7 @@ export default {
 .tag
   padding: 0.1rem
   display inline-block
+
 
 @media (max-width:900px) {
   .line{

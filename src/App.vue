@@ -6,7 +6,7 @@
         v-btn 
           router-link(to='/') HOME
         v-btn
-          router-link(to='/') Army
+          router-link(to='/favorite') FAVORITE
         v-btn
           router-link(to='/') EQUIP
         v-btn
@@ -74,6 +74,15 @@ p
 .row
   padding-left 1rem
   padding-right 1rem
+
+.favoriteTpye1
+  fill: rgba(255,0,0,0.8)
+.favoriteTpye2
+  fill: rgba(0,255,0,0.8)
+.favoriteTpye3
+  fill: rgba(0,0,255,0.8)
+.title
+  font-size 2.1rem
 
 @media (max-width:700px) {
   .row{
