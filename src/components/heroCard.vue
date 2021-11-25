@@ -1,19 +1,14 @@
 <template lang="pug">
-v-card.card(@click='selectCard(data)' v-if='type==0')
-  .favoriteGroup(v-if='showHeart')
-    svg.favoriteTpye(xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" v-for="index in herofavoriteList" :class='"favoriteTpye"+index')
-      path(d="M12 4.435c-1.989-5.399-12-4.597-12 3.568 0 4.068 3.06 9.481 12 14.997 8.94-5.516 12-10.929 12-14.997 0-8.118-10-8.999-12-3.568z")
-  .img
-    img(:src='data.avatarUrl')
-    .name
-      h3 {{data.name}}
-v-card.favoriteCard(@click='selectCard(data)' v-else)
-  .favoriteGroup(v-if='showHeart')
-    svg.favoriteTpye(xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" v-for="index in herofavoriteList" :class='"favoriteTpye"+index')
-      path(d="M12 4.435c-1.989-5.399-12-4.597-12 3.568 0 4.068 3.06 9.481 12 14.997 8.94-5.516 12-10.929 12-14.997 0-8.118-10-8.999-12-3.568z")
-  .favoriteImg
-    img(:src='data.avatarUrl')
-  .skill
+.outerCard
+  v-card.card(@click='selectCard(data)')
+    .favoriteGroup(v-if='showHeart')
+      svg.favoriteTpye(xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" v-for="index in herofavoriteList" :class='"favoriteTpye"+index')
+        path(d="M12 4.435c-1.989-5.399-12-4.597-12 3.568 0 4.068 3.06 9.481 12 14.997 8.94-5.516 12-10.929 12-14.997 0-8.118-10-8.999-12-3.568z")
+    .img
+      img(:src='data.avatarUrl')
+      .name
+        h3 {{data.name}}
+  .skill.tooltiptext( v-bind:class='{show:show}')
     .p(v-for='skill in data.skill')
       h2 {{skill.title}}
       h3 {{skill.type}}
@@ -22,6 +17,11 @@ v-card.favoriteCard(@click='selectCard(data)' v-else)
 <script>
 export default {
   name: "heroCard",
+  data() {
+    return {
+      show: false,
+    };
+  },
   props: {
     data: Object,
     favoriteTpye: {
@@ -33,6 +33,10 @@ export default {
       default: 0,
     },
     showHeart: {
+      type: Boolean,
+      default: false,
+    },
+    showSkill: {
       type: Boolean,
       default: false,
     },
@@ -55,17 +59,21 @@ export default {
   },
   methods: {
     selectCard(data) {
-      if (this.favoriteTpye == 0) {
-        this.$router.push({ name: "Hero", query: { name: data.name } });
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth",
-        });
+      if (this.showSkill) {
+        this.show = !this.show;
       } else {
-        this.$store.commit("addFavoriteHero", {
-          index: this.favoriteTpye,
-          name: data.name,
-        });
+        if (this.favoriteTpye == 0) {
+          this.$router.push({ name: "Hero", query: { name: data.name } });
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+        } else {
+          this.$store.commit("addFavoriteHero", {
+            index: this.favoriteTpye,
+            name: data.name,
+          });
+        }
       }
     },
   },
@@ -78,14 +86,19 @@ export default {
 };
 </script>
 <style lang="stylus" scoped>
+.outerCard
+  display inline-block
+  position relative
 .card
   margin: 1rem
   display inline-block
   position relative
   box-shadow: 0.2rem 0.2rem 0.7rem rgba(0,0,0,0.5)
+  width 230px
+  height 450px
   .img
-    width 230px
-    height 450px
+    width 100%
+    height 100%
     img
       width 100%
       height 100%
@@ -111,28 +124,28 @@ export default {
       opacity 1
 
 
-.favoriteCard
-  margin: 1rem
-  display block
-  position relative
-  box-shadow: 0.2rem 0.2rem 0.7rem rgba(0,0,0,0.5)
-  .favoriteImg
-    width 200px
-    height 440px
-    float left
-    margin-right: 4rem
-    margin-bottom: 7rem
-    img
-      width 100%
-      height 100%
-      object-fit: cover
-      object-position: 50% 60px;
-      transform scale(1.5)
+.tooltiptext
+  opacity 0
+  background-color: black;
+  color: #fff;
+  width 200%
+  word-wrap:break-word;
+  bottom 0
+  left: -130%
+  transition: 0.5s
+  transform:translate(100%,5%) scale(0.9)
+  z-index: 10;
+  padding: 1rem
 
+.tooltiptext
+  position absolute
+  pointer-events: none
 
+.show
+  opacity 0.9
 
 @media (max-width:700px) {
-  .img{
+  .card{
     width 120px
     height 120px
     &:hover{
@@ -144,16 +157,6 @@ export default {
   .card>.img>img{
     object-position: 50% 25px;
     transform scale(2.3)
-  }
-
-  .favoriteCard>.favoriteImg{
-    width 100% !important
-    height 20%
-    margin-bottom: 1rem
-  }
-  .favoriteCard>.favoriteImg>img{
-    object-position: 50% 50%;
-    transform scale(1)
   }
 
 }

@@ -18,7 +18,6 @@
         a(href='https://forum.gamer.com.tw/B.php?bsn=72995') GAMER
       v-btn
         a(href='https://forum.gamer.com.tw/C.php?bsn=72995&snA=44&tnum=3') DATA
-          
     v-main
       router-view
 </template>
@@ -72,8 +71,8 @@ p
   padding: 0.5rem
 
 .row
-  padding-left 1rem
-  padding-right 1rem
+  padding 1rem
+
 
 .favoriteTpye1
   fill: rgba(255,0,0,0.8)
@@ -86,8 +85,7 @@ p
 
 @media (max-width:700px) {
   .row{
-    padding-left 0.1rem
-    padding-right 0.1rem
+    padding 0.1rem
   }
   span{
     font-size 0.9rem

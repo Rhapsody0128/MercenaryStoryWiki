@@ -1,13 +1,13 @@
 <template lang="pug">
 .favorite
-  .row()
+  .row
     v-sheet.p.mt.rounded-lg(v-for='(heros,index) in herosList' elevation="10" color='rgba(0,0,0,0)' )
-      span.title 隊伍{{index+1}}
-      svg(:class='"favoriteTpye" + (index+1)' xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24")      
-        path(d="M12 4.435c-1.989-5.399-12-4.597-12 3.568 0 4.068 3.06 9.481 12 14.997 8.94-5.516 12-10.929 12-14.997 0-8.118-10-8.999-12-3.568z")
+      div
+        span.title 隊伍{{index+1}}
+        svg(:class='"favoriteTpye" + (index+1)' xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24")      
+          path(d="M12 4.435c-1.989-5.399-12-4.597-12 3.568 0 4.068 3.06 9.481 12 14.997 8.94-5.516 12-10.929 12-14.997 0-8.118-10-8.999-12-3.568z")
       .cardList
-        v-col(cols='12' md='6' v-for='hero in heros' )
-          heroCard(:data='hero' :type='1')
+        heroCard(:data='hero' :showSkill='true'  v-for='hero in heros' )
 </template>
 <script>
 export default {
@@ -42,6 +42,5 @@ export default {
 </script>
 <style lang="stylus" scoped>
 .cardList
-  display: flex
-  flex-wrap:wrap
+  position: relative
 </style>
