@@ -8,11 +8,12 @@
       img(:src='data.avatarUrl')
       .name
         h3 {{data.name}}
-  .skill.tooltiptext( v-bind:class='{show:show}')
+  .skill.tooltiptext( v-bind:class='{show:show}' @click='colseSkill()')
+    h1 {{data.name}} 的技能
     .p(v-for='skill in data.skill')
-      h2 {{skill.title}}
-      h3 {{skill.type}}
-      h4 {{skill.info}} 
+      h2.mt {{skill.title}}
+      h3.mt {{skill.type}}
+      h4.mt {{skill.info}} 
 </template>
 <script>
 export default {
@@ -60,7 +61,7 @@ export default {
   methods: {
     selectCard(data) {
       if (this.showSkill) {
-        this.show = !this.show;
+        this.show = true;
       } else {
         if (this.favoriteTpye == 0) {
           this.$router.push({ name: "Hero", query: { name: data.name } });
@@ -75,6 +76,9 @@ export default {
           });
         }
       }
+    },
+    colseSkill() {
+      this.show = false;
     },
   },
   watch: {
@@ -128,21 +132,19 @@ export default {
   opacity 0
   background-color: black;
   color: #fff;
-  width 200%
+  width 100%
   word-wrap:break-word;
   bottom 0
-  left: -130%
+  left: 0
   transition: 0.5s
-  transform:translate(100%,5%) scale(0.9)
   z-index: 10;
   padding: 1rem
-
-.tooltiptext
-  position absolute
-  pointer-events: none
+  position fixed
+  height 0
 
 .show
-  opacity 0.9
+  opacity 0.8
+  height 95%
 
 @media (max-width:700px) {
   .card{
