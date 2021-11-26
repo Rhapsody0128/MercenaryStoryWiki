@@ -1,8 +1,8 @@
 <template lang="pug">
 #app
   v-app
-    v-app-bar(density="compact")
-      v-app-bar-title.nav
+    v-app-bar(density="compact").nav
+      v-app-bar-title
         v-btn 
           router-link(to='/') HOME
         v-btn
@@ -38,8 +38,6 @@ export default {
 .nav
   background: #f6f3ff
   transition: 0.5s
-  display: flex
-  overflow: scroll
   &:hover
     opacity 1
 #app
