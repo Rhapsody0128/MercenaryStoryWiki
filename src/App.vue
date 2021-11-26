@@ -1,8 +1,8 @@
 <template lang="pug">
 #app
   v-app
-    v-app-bar(density="compact").nav
-      v-app-bar-title
+    v-app-bar(density="compact")
+      v-app-bar-title.nav
         v-btn 
           router-link(to='/') HOME
         v-btn
@@ -13,13 +13,12 @@
           router-link(to='/') ACTIVITY
         v-btn
           router-link(to='/') OTHERS
-      v-spacer
-      v-btn
-        a(href='https://forum.gamer.com.tw/B.php?bsn=72995') GAMER
-      v-btn
-        a(href='https://forum.gamer.com.tw/C.php?bsn=72995&snA=44&tnum=3') DATA
-      v-btn
-        a(href='https://github.com/Rhapsody0128/MercenaryStoryWiki') GITHUB
+        v-btn
+          a(href='https://forum.gamer.com.tw/B.php?bsn=72995') GAMER
+        v-btn
+          a(href='https://forum.gamer.com.tw/C.php?bsn=72995&snA=44&tnum=3') DATA
+        v-btn
+          a(href='https://github.com/Rhapsody0128/MercenaryStoryWiki') GITHUB
     v-main
       router-view
 </template>
@@ -39,6 +38,8 @@ export default {
 .nav
   background: #f6f3ff
   transition: 0.5s
+  display: flex
+  overflow: scroll
   &:hover
     opacity 1
 #app
