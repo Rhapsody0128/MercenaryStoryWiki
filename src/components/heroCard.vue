@@ -9,7 +9,7 @@
       .name
         h3 {{data.name}}
   .skill.tooltiptext( v-bind:class='{show:show}' @click='colseSkill()')
-    h1 {{data.name}} 的技能
+    h1 {{data.name}} 技能
     .p(v-for='skill in data.skill')
       h2.mt {{skill.title}}
       h3.mt {{skill.type}}
@@ -145,6 +145,7 @@ export default {
 .show
   opacity 0.8
   height 95%
+  overflow scroll
 
 @media (max-width:700px) {
   .card{

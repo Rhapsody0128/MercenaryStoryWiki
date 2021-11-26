@@ -18,6 +18,8 @@
         a(href='https://forum.gamer.com.tw/B.php?bsn=72995') GAMER
       v-btn
         a(href='https://forum.gamer.com.tw/C.php?bsn=72995&snA=44&tnum=3') DATA
+      v-btn
+        a(href='https://github.com/Rhapsody0128/MercenaryStoryWiki') GITHUB
     v-main
       router-view
 </template>
