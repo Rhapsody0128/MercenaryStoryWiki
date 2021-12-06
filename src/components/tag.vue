@@ -56,6 +56,9 @@ export default {
 
 .tooltiptext
   pointer-events: none
+  white-space: pre-wrap
+  z-index 10
+  position relative
 
 .tag:hover
   .tooltiptext
@@ -104,6 +107,15 @@ export default {
     white-space: nowrap
     overflow-x: auto
     padding-bottom 1rem
+  }
+  .tag:hover{
+    .tooltiptext{
+      opacity 0.9
+      width 50%
+      transform: translate(-10%) scale(1)
+      position: relative
+      top 0%
+    }
   }
   .tag{
     display: inline-block

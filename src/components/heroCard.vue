@@ -107,8 +107,6 @@ export default {
       width 100%
       height 100%
       object-fit: cover
-      object-position: 50% 40px;
-      transform scale(1.3)
   .name
     position: absolute
     z-index 9
