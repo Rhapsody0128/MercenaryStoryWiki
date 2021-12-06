@@ -114,7 +114,7 @@ export default {
     .tooltiptext{
       opacity 0.9
       width 50%
-      transform: translate(-75%,10%) scale(1)
+      transform: translate(-30%,10%) scale(1)
       position: relative
       height auto
     }

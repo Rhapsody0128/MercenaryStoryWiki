@@ -161,7 +161,6 @@ export default {
 .active
   bottom 70%
   left: 52%
-  background: rgba(255,0,0,0.5)
 .passive
   bottom 14.9%
   left: 29.3%

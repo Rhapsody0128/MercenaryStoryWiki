@@ -49,6 +49,9 @@ export default {
       });
       return hero;
     },
+    getFavoriteLength() {
+      return this.$store.getters.getFavoriteLength;
+    },
     herofavoriteList() {
       try {
         let result = this.favoriteHero.favorite;
@@ -78,6 +81,13 @@ export default {
             index: this.favoriteTpye,
             name: data.name,
           });
+          if (this.getFavoriteLength[this.favoriteTpye - 1] > 20) {
+            alert("隊伍超過20名上限，請移除部分角色");
+            this.$store.commit("addFavoriteHero", {
+              index: this.favoriteTpye,
+              name: data.name,
+            });
+          }
         }
       }
     },

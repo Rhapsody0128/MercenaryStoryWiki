@@ -15,6 +15,24 @@ export default createStore({
     getFavoriteArmy(state) {
       return state.favoriteArmy;
     },
+    getFavoriteLength(state) {
+      let length = [0, 0, 0];
+      state.favoriteHero.map((hero) => {
+        if (hero.favorite) {
+          hero.favorite.map((data) => {
+            length[data - 1]++;
+          });
+        }
+      });
+      state.favoriteArmy.map((army) => {
+        if (army.favorite) {
+          army.count.map((item) => {
+            length[item.index - 1] += item.count;
+          });
+        }
+      });
+      return length;
+    },
   },
   mutations: {
     addFavoriteHero(state, data) {

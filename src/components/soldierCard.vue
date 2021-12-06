@@ -12,7 +12,7 @@
       .inputBox(@click.nantive='checkInput($event)' v-if='index == favoriteTpye')
         svg.favoriteTpye(xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" :class='"favoriteTpye"+index')
           path(d="M12 4.435c-1.989-5.399-12-4.597-12 3.568 0 4.068 3.06 9.481 12 14.997 8.94-5.516 12-10.929 12-14.997 0-8.118-10-8.999-12-3.568z")
-        v-text-field.input(v-model="count" :rules='rules' counter maxlength='2' label='數量' suffix="位" hint="" size='2' @change='saveCount()')
+        v-text-field.input(v-model="count" :rules='rules' label='數量' suffix="位" :hint="'目前隊伍人數'+getFavoriteLength[index-1]" size='2' @blur='saveCount()' type='number')
   .skill.tooltiptext(v-bind:class='{show:show}' @click='closeSkill()')
     h1 {{data.name}} 技能
     .p(v-for='skill in data.skill')
@@ -26,6 +26,7 @@ export default {
   data() {
     return {
       count: "0",
+      lastCount: 0,
       show: false,
       rules: [(v) => v <= 2],
     };
@@ -55,6 +56,9 @@ export default {
         return army.name == this.data.name;
       });
       return army;
+    },
+    getFavoriteLength() {
+      return this.$store.getters.getFavoriteLength;
     },
     armyfavoriteList() {
       try {
@@ -114,12 +118,38 @@ export default {
       this.show = false;
     },
     saveCount() {
-      this.$store.commit("addFavoriteArmyCount", {
-        index: this.favoriteTpye,
-        name: this.data.name,
-        count: parseInt(this.count),
-      });
+      let count = parseInt(this.count);
+      if (count >= 0 && !isNaN(count)) {
+        this.$store.commit("addFavoriteArmyCount", {
+          index: this.favoriteTpye,
+          name: this.data.name,
+          count: count,
+        });
+        this.$nextTick(() => {
+          if (this.getFavoriteLength[this.favoriteTpye - 1] > 20) {
+            alert(
+              `目前設置隊伍人數為${
+                this.getFavoriteLength[this.favoriteTpye - 1]
+              }位，一個隊伍最多只能有 20 位角色`
+            );
+            this.$store.commit("addFavoriteArmyCount", {
+              index: this.favoriteTpye,
+              name: this.data.name,
+              count: this.lastCount,
+            });
+            this.count = this.lastCount.toString();
+          } else {
+            this.lastCount = count;
+          }
+        });
+      } else {
+        alert("請填入正確正整數");
+        this.count = this.lastCount.toString();
+      }
     },
+  },
+  mounted() {
+    this.lastCount = this.armyCount;
   },
   watch: {
     favoriteHero: {
@@ -171,7 +201,6 @@ export default {
       opacity 1
   .inputBox
     position: absolute
-    // display: flex
     z-index 5
     width 90%
     transition: 0.5s
@@ -212,10 +241,17 @@ export default {
   .card{
     width 120px
     height 120px
-    &:hover{
-      .name{
-        height 30%
-      }
+  }
+  .inputBox{
+    height 200%
+    background: rgba(255,255,255,0.8)
+    text-align: center
+    top 0
+    bottom 0
+    left 0
+    right 0
+    .favoriteTpye{
+      display: none
     }
   }
   .card>.img>img{

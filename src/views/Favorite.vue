@@ -6,6 +6,7 @@
         span.title 隊伍{{index+1}}
         svg(:class='"favoriteTpye" + (index+1)' xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24")      
           path(d="M12 4.435c-1.989-5.399-12-4.597-12 3.568 0 4.068 3.06 9.481 12 14.997 8.94-5.516 12-10.929 12-14.997 0-8.118-10-8.999-12-3.568z")
+        span.ml {{getFavoriteLength[index]}}/20人
       .cardList
         heroCard(:data='hero' :showSkill='true'  v-for='hero in heros' )
       .armyCardList
@@ -30,6 +31,9 @@ export default {
     favoriteArmy() {
       return this.$store.getters.getFavoriteArmy;
     },
+    getFavoriteLength() {
+      return this.$store.getters.getFavoriteLength;
+    },
   },
   methods: {
     getData() {
@@ -53,11 +57,9 @@ export default {
       this.armyList = armyResult;
     },
     getCount(data, index) {
-      console.log(index);
       let find = data.count.find((item) => {
         return item.index == index;
       });
-      console.log(find);
       if (find) {
         return find.count;
       }
