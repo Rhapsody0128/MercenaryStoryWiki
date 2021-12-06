@@ -32,7 +32,7 @@
 </template>
 <script>
 import { heroList } from "../data/hero/index";
-import { tagList } from "../data/tag/index";
+import { heroTagList } from "../data/tag/index";
 import { armyTypeList } from "../data/army/index";
 import { raceList } from "../data/race/index";
 export default {
@@ -147,7 +147,7 @@ export default {
     this.heros = JSON.parse(JSON.stringify(heroList));
     this.armyType = JSON.parse(JSON.stringify(armyTypeList));
     this.race = JSON.parse(JSON.stringify(raceList));
-    this.tag = JSON.parse(JSON.stringify(tagList));
+    this.tag = JSON.parse(JSON.stringify(heroTagList));
     this.selectHeros = this.heros;
     let that = this;
     document.onkeydown = function (evt) {

@@ -9,14 +9,24 @@ const routes = [
   {
     path: "/hero",
     name: "Hero",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Hero.vue"),
+    component: () => import(/* webpackChunkName: "Hero" */ "../views/Hero.vue"),
   },
   {
     path: "/favorite",
     name: "Favorite",
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Favorite.vue"),
+      import(/* webpackChunkName: "Favorite" */ "../views/Favorite.vue"),
+  },
+  {
+    path: "/army",
+    name: "Army",
+    component: () => import(/* webpackChunkName: "Army" */ "../views/Army.vue"),
+  },
+  {
+    path: "/soldier",
+    name: "Soldier",
+    component: () =>
+      import(/* webpackChunkName: "Soldier" */ "../views/Soldier.vue"),
   },
 ];
 

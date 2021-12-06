@@ -5,6 +5,7 @@ import store from "./store";
 import vuetify from "./plugins/vuetify";
 import { loadFonts } from "./plugins/webfontloader";
 import heroCard from "./components/heroCard.vue";
+import soldierCard from "./components/soldierCard.vue";
 import tag from "./components/tag.vue";
 
 loadFonts();
@@ -14,5 +15,6 @@ createApp(App)
   .use(store)
   .use(vuetify)
   .component("heroCard", heroCard)
+  .component("soldierCard", soldierCard)
   .component("tag", tag)
   .mount("#app");

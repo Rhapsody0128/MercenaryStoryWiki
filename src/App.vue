@@ -4,15 +4,15 @@
     v-app-bar(density="compact").nav
       v-app-bar-title
         v-btn 
-          router-link(to='/') HOME
+          router-link(to='/') HERO
+        v-btn
+          router-link(to='/army') ARMY
         v-btn
           router-link(to='/favorite') FAVORITE
-        v-btn
-          router-link(to='/') EQUIP
-        v-btn
-          router-link(to='/') ACTIVITY
-        v-btn
-          router-link(to='/') OTHERS
+        //- v-btn
+        //-   router-link(to='/') ACTIVITY
+        //- v-btn
+        //-   router-link(to='/') OTHERS
         v-btn
           a(href='https://forum.gamer.com.tw/B.php?bsn=72995') GAMER
         v-btn

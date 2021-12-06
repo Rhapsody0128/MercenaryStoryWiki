@@ -59,12 +59,14 @@ export default {
   white-space: pre-wrap
   z-index 10
   position relative
+  height: 0
 
 .tag:hover
   .tooltiptext
     opacity 0.9
     width 130%
     transform: translate(-10%) scale(1)
+    height auto
 
 .active
   box-shadow: 0rem 0rem 0.1rem black
@@ -112,9 +114,9 @@ export default {
     .tooltiptext{
       opacity 0.9
       width 50%
-      transform: translate(-10%) scale(1)
+      transform: translate(-75%,10%) scale(1)
       position: relative
-      top 0%
+      height auto
     }
   }
   .tag{

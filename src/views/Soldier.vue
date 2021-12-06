@@ -1,10 +1,10 @@
 <template lang="pug">
-.hero
+.soldier
   v-container(fluid)
     v-row
       v-col(cols='12' md='8')
         v-sheet.p.rounded-lg(elevation="3" color='rgba(0,0,0,0)').img
-          img(:src='hero.infoUrl')
+          img(:src='hero.avatarUrl')
           .skill(v-for='skill in hero.skill' :class="skill.class" )
             .tooltip
               .tooltiptext 
@@ -31,14 +31,14 @@
       v-col
         v-sheet.p.mt.rounded-lg(elevation="6" color='rgba(0,0,0,0)')
           h2 {{tagData.tag}}
-          heroCard(v-for='data in tagData.data' :data='data')
+          soldierCard(v-for='data in tagData.data' :data='data')
 </template>
 <script>
 import { findData, filterData } from "../data/global";
 import { armyTypeList } from "../data/army/index";
 import { raceList } from "../data/race/index";
-import { heroList } from "../data/hero/index";
-import { heroTagList } from "../data/tag/index";
+import { armyList } from "../data/army/index";
+import { armyTagList } from "../data/tag/index";
 export default {
   data() {
     return {
@@ -54,14 +54,15 @@ export default {
   },
   methods: {
     getData() {
-      this.hero = findData(heroList, "name", this.heroName);
+      this.hero = findData(armyList, "name", this.heroName);
 
       this.tag = [];
       let armyTypeTag = findData(armyTypeList, "title", this.hero.armyType);
       let raceTag = findData(raceList, "title", this.hero.race);
       this.tag.push(raceTag, armyTypeTag);
+      console.log(this.tag);
       this.hero.tag.map((data) => {
-        let tag = findData(heroTagList, "title", data);
+        let tag = findData(armyTagList, "title", data);
         if (tag) {
           this.tag.push(tag);
         }
@@ -72,13 +73,13 @@ export default {
     getTagHero() {
       this.tagData = [];
       let sameRaceHero = filterData(
-        heroList,
+        armyList,
         "race",
         this.hero.race,
         this.hero.name
       );
       let sameArmyTypeHero = filterData(
-        heroList,
+        armyList,
         "armyType",
         this.hero.armyType,
         this.hero.name
@@ -99,7 +100,7 @@ export default {
       this.tag.map((tag) => {
         let result = [];
         if (tag) {
-          heroList.map((hero) => {
+          armyList.map((hero) => {
             if (hero.tag.includes(tag.title) && hero.name !== this.hero.name) {
               result.push(hero);
             }
@@ -149,8 +150,8 @@ export default {
   }
 }
 .skill
-  width 6%
-  height 11%
+  width 5%
+  height 8.5%
   position: absolute
   z-index 9
 
@@ -158,8 +159,9 @@ export default {
   bottom 28.5%
   left: 21.6%
 .active
-  bottom 14.9%
-  left: 21.6%
+  bottom 70%
+  left: 52%
+  background: rgba(255,0,0,0.5)
 .passive
   bottom 14.9%
   left: 29.3%
@@ -177,7 +179,7 @@ export default {
   border-radius: 1rem;
   width 300%
   word-wrap:break-word;
-  right -700%
+  right 0%
   top -50%
   transition: 0.5s
   transform:translate(-50%,-20%) scale(0.5)
