@@ -1,6 +1,6 @@
 <template lang="pug">
 .outerCard
-  v-card.card(@click='selectCard(data)')
+  v-card.card(@click='selectCard(data)' v-bind:class='{lead:lead,captain:captain}')
     .favoriteGroup(v-if='showHeart')
       svg.favoriteTpye(xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" v-for="index in herofavoriteList" :class='"favoriteTpye"+index')
         path(d="M12 4.435c-1.989-5.399-12-4.597-12 3.568 0 4.068 3.06 9.481 12 14.997 8.94-5.516 12-10.929 12-14.997 0-8.118-10-8.999-12-3.568z")
@@ -38,6 +38,14 @@ export default {
       default: false,
     },
     showSkill: {
+      type: Boolean,
+      default: false,
+    },
+    lead: {
+      type: Boolean,
+      default: false,
+    },
+    captain: {
       type: Boolean,
       default: false,
     },
@@ -183,4 +191,9 @@ export default {
 
 .favoriteTpye
   margin: 0.1rem
+
+.lead
+  box-shadow: 0rem 0rem 1rem blue
+.captain
+  box-shadow: 0rem 0rem 1rem red
 </style>
