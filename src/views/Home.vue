@@ -26,6 +26,8 @@
         path(d="M12 4.435c-1.989-5.399-12-4.597-12 3.568 0 4.068 3.06 9.481 12 14.997 8.94-5.516 12-10.929 12-14.997 0-8.118-10-8.999-12-3.568z")
     v-btn.favorite(@click='clearFavorite()')
       span 清空所有收藏
+    v-btn(@click='getData()')
+      v-switch(v-model='isUnion' :label='unionLabel')
   .row
     v-sheet.p.mt.rounded-lg(elevation="3" color='rgba(0,0,0,0)')
       heroCard(v-for='data in selectHeros' :data='data' :favoriteTpye='favoriteType' :showHeart="true")
@@ -44,6 +46,7 @@ export default {
       race: [],
       tag: [],
       favoriteType: 0,
+      isUnion: false,
     };
   },
   computed: {
@@ -61,6 +64,13 @@ export default {
       result = result.concat(selectTag);
       return result;
     },
+    unionLabel() {
+      if (this.isUnion) {
+        return "聯集模式 (or)";
+      } else {
+        return "交集模式 ( and )";
+      }
+    },
   },
   methods: {
     getData() {
@@ -68,8 +78,12 @@ export default {
         this.selectHeros = this.heros;
       } else {
         let heros = heroList;
+        let result = [];
+
         this.selectTags.map((data) => {
-          let result = [];
+          if (!this.isUnion) {
+            result = [];
+          }
           heros.map((hero) => {
             if (data.type == "tag") {
               if (hero.tag.includes(data.title)) {
@@ -90,10 +104,16 @@ export default {
                 }
               }
             }
-            heros = result;
           });
+          if (!this.isUnion) {
+            heros = result;
+          }
         });
-        this.selectHeros = heros;
+        if (this.isUnion) {
+          this.selectHeros = result;
+        } else {
+          this.selectHeros = heros;
+        }
       }
     },
     selectTag(from, data) {

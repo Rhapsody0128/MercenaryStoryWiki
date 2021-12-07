@@ -165,6 +165,7 @@ export default {
 .show
   opacity 0.8
   height 100%
+  padding-bottom 5rem
   overflow scroll
 
 @media (max-width:700px) {
