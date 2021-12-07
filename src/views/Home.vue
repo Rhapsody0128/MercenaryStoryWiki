@@ -16,6 +16,8 @@
       .tags
         tag(:datas='tag')
   .row.p.mt
+    v-btn(@click='handleUnion()')
+      v-switch(v-model='isUnion' :label='unionLabel' inset)
     v-btn(@click='clearSelectTag()') 
       span 清空所有標籤 (快捷鍵可按esc)
     v-btn.favorite(@click='changeFavoriteType()')
@@ -26,8 +28,6 @@
         path(d="M12 4.435c-1.989-5.399-12-4.597-12 3.568 0 4.068 3.06 9.481 12 14.997 8.94-5.516 12-10.929 12-14.997 0-8.118-10-8.999-12-3.568z")
     v-btn.favorite(@click='clearFavorite()')
       span 清空所有收藏
-    v-btn(@click='getData()')
-      v-switch(v-model='isUnion' :label='unionLabel')
   .row
     v-sheet.p.mt.rounded-lg(elevation="3" color='rgba(0,0,0,0)')
       heroCard(v-for='data in selectHeros' :data='data' :favoriteTpye='favoriteType' :showHeart="true")
@@ -66,9 +66,9 @@ export default {
     },
     unionLabel() {
       if (this.isUnion) {
-        return "聯集模式 (or)";
+        return "聯集模式 (or:只要符合任一個條件)";
       } else {
-        return "交集模式 ( and )";
+        return "交集模式 (and:需要符合所有條件)";
       }
     },
   },
@@ -162,6 +162,10 @@ export default {
       this.favoriteType = 0;
       this.$store.commit("clearFavorite");
     },
+    handleUnion() {
+      this.isUnion = !this.isUnion;
+      this.getData();
+    },
   },
   mounted() {
     this.heros = JSON.parse(JSON.stringify(heroList));
@@ -197,6 +201,9 @@ export default {
 .tag
   padding: 0.1rem
   display inline-block
+
+.v-input
+  grid-template-areas:none !important
 
 
 @media (max-width:900px) {
