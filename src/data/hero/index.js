@@ -410,7 +410,7 @@ export const heroList = [
     race: "野獸",
     nickName: ["野獸騎"],
     tag: ["擊退", "暈眩", "遠迴增加", "免疫", "前排輔助"],
-    info: "小編云:一整群免疫異常狀態的騎兵發動衝鋒，這樣的騎兵你喜歡嗎?",
+    info: "小編云:一整群免疫異常狀態的騎兵發動衝鋒，這樣的騎兵你喜歡嗎?主動技實際CD目前約10秒，被動30秒，與敘述不同",
     avatarUrl: "./images/heros/avatar/Hero_39_Arg.png",
     infoUrl: "./images/heros/info/貝拉.jpg",
     skill: [
