@@ -8,8 +8,8 @@
           path(d="M12 4.435c-1.989-5.399-12-4.597-12 3.568 0 4.068 3.06 9.481 12 14.997 8.94-5.516 12-10.929 12-14.997 0-8.118-10-8.999-12-3.568z")
         span.ml {{getFavoriteLength[index]}}/20人
       .cardList
-        .heroCard(v-for='(hero,index) in heros')
-          heroCard(:data='hero' :showSkill='true' :lead="index<4" :captain='index==0')
+        .heroCard(v-for='(hero,index) in heros' :key='index')
+          heroCard(:data='hero' :showSkill='true' :lead="index < 4" :captain='index == 0')
       .armyCardList
         .armyCard(v-for='army in armyList[index]')
           soldierCard(:data='army' :showSkill='true' v-for='i in getCount(army,index+1)')
@@ -45,6 +45,12 @@ export default {
             result[data - 1].push(hero);
           });
         }
+      });
+      result.map((perTeam) => {
+        perTeam.sort((a, b) => {
+          console.log(a);
+          return a.index - b.index;
+        });
       });
       this.herosList = result;
       let armyResult = [[], [], []];

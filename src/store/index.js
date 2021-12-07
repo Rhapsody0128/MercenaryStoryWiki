@@ -7,6 +7,7 @@ export default createStore({
   state: {
     favoriteHero: JSON.parse(JSON.stringify(heroList)),
     favoriteArmy: JSON.parse(JSON.stringify(armyList)),
+    index: 0,
   },
   getters: {
     getFavoriteHero(state) {
@@ -44,15 +45,20 @@ export default createStore({
               hero.favorite.splice(find, 1);
             } else {
               hero.favorite.push(data.index);
+              state.index++;
+              hero.index = state.index;
             }
           } catch (error) {
             hero.favorite = [data.index];
+            state.index++;
+            hero.index = state.index;
           }
         }
       });
     },
     clearFavorite(state) {
       state.favoriteHero = JSON.parse(JSON.stringify(heroList));
+      state.index = 0;
     },
     addFavoriteArmy(state, data) {
       state.favoriteArmy.map((army) => {
