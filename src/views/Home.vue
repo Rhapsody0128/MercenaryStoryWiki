@@ -79,7 +79,6 @@ export default {
       } else {
         let heros = heroList;
         let result = [];
-
         this.selectTags.map((data) => {
           if (!this.isUnion) {
             result = [];

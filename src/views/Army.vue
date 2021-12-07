@@ -1,5 +1,5 @@
 <template lang="pug">
-#home
+#army
   .row
     v-sheet.p.mt.rounded-lg(elevation="3" color='rgba(0,0,0,0)')
       h3 種族
@@ -16,6 +16,8 @@
       .tags
         tag(:datas='tag')
   .row.p.mt
+    v-btn(@click='handleUnion()')
+      v-switch(v-model='isUnion' :label='unionLabel' inset)
     v-btn(@click='clearSelectTag()') 
       span 清空所有標籤 (快捷鍵可按esc)
     v-btn.favorite(@click='changeFavoriteType()')
@@ -44,6 +46,7 @@ export default {
       race: [],
       tag: [],
       favoriteType: 0,
+      isUnion: false,
     };
   },
   computed: {
@@ -61,6 +64,13 @@ export default {
       result = result.concat(selectTag);
       return result;
     },
+    unionLabel() {
+      if (this.isUnion) {
+        return "聯集模式 (or:只要符合任一個條件)";
+      } else {
+        return "交集模式 (and:需要符合所有條件)";
+      }
+    },
   },
   methods: {
     getData() {
@@ -68,8 +78,11 @@ export default {
         this.selectHeros = this.heros;
       } else {
         let heros = armyList;
+        let result = [];
         this.selectTags.map((data) => {
-          let result = [];
+          if (!this.isUnion) {
+            result = [];
+          }
           heros.map((hero) => {
             if (data.type == "tag") {
               if (hero.tag.includes(data.title)) {
@@ -90,10 +103,16 @@ export default {
                 }
               }
             }
-            heros = result;
           });
+          if (!this.isUnion) {
+            heros = result;
+          }
         });
-        this.selectHeros = heros;
+        if (this.isUnion) {
+          this.selectHeros = result;
+        } else {
+          this.selectHeros = heros;
+        }
       }
     },
     selectTag(from, data) {
@@ -142,6 +161,10 @@ export default {
       this.favoriteType = 0;
       this.$store.commit("clearFavoriteArmy");
     },
+    handleUnion() {
+      this.isUnion = !this.isUnion;
+      this.getData();
+    },
   },
   mounted() {
     this.heros = JSON.parse(JSON.stringify(armyList));
@@ -177,6 +200,10 @@ export default {
 .tag
   padding: 0.1rem
   display inline-block
+
+.v-input
+  grid-template-areas:none !important
+
 
 
 @media (max-width:900px) {
